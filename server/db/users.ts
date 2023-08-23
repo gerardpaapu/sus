@@ -1,8 +1,9 @@
-import connection from "./connection";
+import connection from './connection'
 
-export async function oneByEmail(email: string) {
-    return connection('users')
-        .select('*')
-        .where({ email })
-        .first()
+export async function oneByUsername(username: string) {
+  return connection('users').select('*').where({ username }).first()
+}
+
+export async function oneById(id: number) {
+  return connection('users').select('*').where({ id }).first()
 }

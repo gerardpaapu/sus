@@ -13,7 +13,7 @@ export default {
     client: 'sqlite3',
     useNullAsDefault: true,
     connection: {
-      filename: Path.resolve(__dirname, './dev.sqlite3')
-    }
+      filename: Path.resolve(__dirname, './dev.sqlite3'),
+    },
   },
-};
+}
