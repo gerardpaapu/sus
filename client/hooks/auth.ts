@@ -26,7 +26,7 @@ function subscribe(listener: () => void) {
 }
 
 function unsubscribe(listener: unknown) {
-  for (let i = 0; i < store.listeners.length; i++) {
+  for (let i = store.listeners.length - 1; i >= 0; i--) {
     if (store.listeners[i] === listener) {
       store.listeners.splice(i, 1)
     }
