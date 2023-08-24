@@ -71,8 +71,8 @@ devDependencies:
     specifier: ^1.17.7
     version: 1.17.7
   '@types/passport':
-    specifier: ^1.0.12
-    version: 1.0.12
+    specifier: 1.0.7
+    version: 1.0.7
   '@types/react':
     specifier: ^18.2.21
     version: 18.2.21
@@ -1413,7 +1413,7 @@ packages:
     resolution: {integrity: sha512-K4eLTJ8R0yYW8TvCqkjB0pTKoqfUSdl5PfZdidTjV2ETV3604fQxtY6BHKjQWAx50WUS0lqzBvKv3LoI1ZBPeA==}
     dependencies:
       '@types/express': 4.17.17
-      '@types/passport': 1.0.12
+      '@types/passport': 1.0.7
       '@types/passport-strategy': 0.2.35
     dev: false
 
@@ -1421,11 +1421,11 @@ packages:
     resolution: {integrity: sha512-o5D19Jy2XPFoX2rKApykY15et3Apgax00RRLf0RUotPDUsYrQa7x4howLYr9El2mlUApHmCMv5CZ1IXqKFQ2+g==}
     dependencies:
       '@types/express': 4.17.17
-      '@types/passport': 1.0.12
+      '@types/passport': 1.0.7
     dev: false
 
-  /@types/passport@1.0.12:
-    resolution: {integrity: sha512-QFdJ2TiAEoXfEQSNDISJR1Tm51I78CymqcBa8imbjo6dNNu+l2huDxxbDEIoFIwOSKMkOfHEikyDuZ38WwWsmw==}
+  /@types/passport@1.0.7:
+    resolution: {integrity: sha512-JtswU8N3kxBYgo+n9of7C97YQBT+AYPP2aBfNGTzABqPAZnK/WOAaKfh3XesUYMZRrXFuoPc2Hv0/G/nQFveHw==}
     dependencies:
       '@types/express': 4.17.17
 

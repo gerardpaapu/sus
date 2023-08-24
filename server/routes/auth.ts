@@ -55,14 +55,9 @@ router.post('/login', passport.authenticate('local'), (req, res) => {
   res.json({ username: req.user?.username })
 })
 
-router.post('/logout', (req, res, next) => {
-  req.logout((err) => {
-    if (err) {
-      return next(err)
-    }
-
-    res.sendStatus(204)
-  })
+router.post('/logout', (req, res) => {
+  req.logout()
+  res.sendStatus(204)
 })
 
 router.get('/whoami', (req, res) => {
