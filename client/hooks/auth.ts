@@ -38,7 +38,7 @@ function setState(status: AuthStatus) {
   for (const listener of store.listeners) {
     try {
       listener()
-    } catch (err) {}
+    } catch (err) { }
   }
 }
 
@@ -57,8 +57,8 @@ let initialised = false
 function initialise() {
   if (!initialised) {
     initialised = true
-    // I'm not awaiting this call because it will
-    // update the store when it completes
+    // I'm not awaiting this call because it will update the store when it
+    // completes
     whoami().catch((err) => console.error(err))
   }
 }

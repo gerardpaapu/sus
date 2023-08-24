@@ -6,13 +6,14 @@ import 'dotenv/config'
 
 import authRoutes from './routes/auth.ts'
 import friends from './routes/friends.ts'
-const server = express()
 
 let { COOKIE_SECRET, NODE_ENV } = process.env
 NODE_ENV = NODE_ENV || 'development'
 if (!COOKIE_SECRET) {
   throw new Error(`Environment variable missing: COOKIE_SECRET`)
 }
+
+const server = express()
 
 server.use(express.json())
 server.use(express.urlencoded({ extended: false }))
