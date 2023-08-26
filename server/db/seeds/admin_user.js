@@ -1,14 +1,17 @@
-import * as crypto from 'node:crypto'
+import Na from 'libsodium-wrappers-sumo'
 
 export async function seed(knex) {
-  const salt = crypto.randomBytes(16)
+  await Na.ready
   const pw = process.env.ADMIN_PW || 'letmein'
-  const encrypted_password = crypto.pbkdf2Sync(pw, salt, 310000, 32, 'sha256')
+  const encrypted_password = Na.crypto_pwhash_str(
+    pw,
+    Na.crypto_pwhash_OPSLIMIT_INTERACTIVE,
+    Na.crypto_pwhash_MEMLIMIT_INTERACTIVE,
+  )
 
   await knex('users').del()
   await knex('users').insert({
     username: 'admin',
-    salt,
     encrypted_password,
   })
 }

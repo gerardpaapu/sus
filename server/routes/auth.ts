@@ -1,12 +1,9 @@
-import * as crypto from 'node:crypto'
-import * as util from 'node:util'
+import Na from 'libsodium-wrappers-sumo'
 import express from 'express'
 import passport from 'passport'
 
 import LocalStrategy from 'passport-local'
 import * as db from '../db/users.ts'
-
-const pbkdf2 = util.promisify(crypto.pbkdf2)
 
 passport.use(
   new LocalStrategy(async (username, password, cb) => {
@@ -16,15 +13,9 @@ passport.use(
         return cb(null, false, { message: 'Incorrect username or password' })
       }
 
-      // TODO: move all these numbers to a module?
-      const hashed_password = await pbkdf2(
-        password,
-        user.salt,
-        310000,
-        32,
-        'sha256',
-      )
-      if (!crypto.timingSafeEqual(hashed_password, user.encrypted_password)) {
+      await Na.ready
+
+      if (!Na.crypto_pwhash_str_verify(user.encrypted_password, password)) {
         return cb(null, false, { message: 'Incorrect username or password' })
       }
 

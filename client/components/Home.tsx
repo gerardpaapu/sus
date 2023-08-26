@@ -1,19 +1,16 @@
 import { useCallback, useState } from 'react'
 
 export default function Home() {
-  const [thingy, setThingy] = useState<any>(null)
+  const [thingy, setThingy] = useState(null as any)
+
 
   const doSomething = useCallback(async () => {
-    try {
-      const res = await fetch('/api/v1/friends')
-      if (res.ok) {
-        const { ...data } = await res.json()
-        setThingy(data)
-      } else {
-        setThingy({ error: res.statusText })
-      }
-    } catch (e) {
-      console.error(e)
+    const res = await fetch(new URL('/api/v1/friends', document.baseURI).toString())
+    if (res.ok) {
+      const { ...data } = await res.json()
+      setThingy(data)
+    } else {
+      setThingy({ error: res.statusText })
     }
   }, [])
 
@@ -23,7 +20,7 @@ export default function Home() {
       <pre>
         <code>{JSON.stringify(thingy, null, 2)}</code>
       </pre>
-      <button onClick={doSomething}>Friends?</button>
+      <button onClick={doSomething}> Friends ? </button>
     </>
   )
 }

@@ -6,12 +6,15 @@ export default function Layout() {
   return (
     <>
       <header>
-        {isAuthenticated ? (
-          <button onClick={logout}>Logout: {username}</button>
-        ) : (
-          <Link to={'/login'}>Login</Link>
-        )}
+        {
+          isAuthenticated ? (
+            <button onClick={logout}> Logout: {username}</ button >
+          ) : (
+            <Link to={'/login'} > Login </Link>
+          )
+        }
       </header>
+
       <Outlet />
     </>
   )
