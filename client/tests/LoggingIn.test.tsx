@@ -1,4 +1,4 @@
-// @vitest-environment jsdom
+// @vitest-environment happy-dom
 
 import { render, screen, waitFor, cleanup } from '@testing-library/react'
 import matchers from '@testing-library/jest-dom/matchers'
@@ -6,7 +6,7 @@ import '@testing-library/jest-dom/vitest'
 import { describe, it, beforeEach, expect } from 'vitest'
 import userEvent from '@testing-library/user-event'
 import { setupServer } from 'msw/node'
-import { rest } from 'msw'
+import { http, HttpResponse} from 'msw'
 import { RouterProvider, createMemoryRouter } from 'react-router-dom'
 import routes from '../routes'
 expect.extend(matchers)
@@ -14,22 +14,22 @@ expect.extend(matchers)
 let loggedIn = true
 
 const server = setupServer(
-  rest.get('/api/v1/whoami', (req, res, ctx) => {
+  http.get('/api/v1/whoami', () => {
     if (loggedIn) {
-      return res(ctx.status(200), ctx.json({ id: 1, username: 'admin' }))
+      return HttpResponse.json({ id: 1, username: 'admin '})
     }
 
-    return res(ctx.status(401))
+    return new HttpResponse(null, { status: 401 })
   }),
 
-  rest.post('/api/v1/logout', (req, res, ctx) => {
+  http.post('/api/v1/logout', () => {
     loggedIn = false
-    return res(ctx.status(204))
+    return new HttpResponse(null, { status: 204 })
   }),
 
-  rest.post('/api/v1/login', (req, res, ctx) => {
+  http.post('/api/v1/login', () => {
     loggedIn = true
-    return res(ctx.status(200), ctx.json({ id: 1, username: 'admin' }))
+    return new HttpResponse(null, { status: 204 })
   })
 )
 

@@ -43,7 +43,7 @@ function setState(status: AuthStatus) {
 }
 
 async function whoami() {
-  const res = await fetch(new URL(`/api/v1/whoami`, document.baseURI).toString())
+  const res = await fetch('/api/v1/whoami')
   if (!res.ok) {
     setState(undefined)
     return
@@ -64,7 +64,7 @@ function initialise() {
 }
 
 async function login(username: string, password: string) {
-  const res = await fetch(new URL('/api/v1/login', document.baseURI).toString(), {
+  const res = await fetch('/api/v1/login', {
     method: 'POST',
     headers: {
       'content-type': 'application/json',
@@ -83,7 +83,7 @@ async function login(username: string, password: string) {
 }
 
 async function logout() {
-  const res = await fetch(new URL('/api/v1/logout', document.baseURI).toString(), {
+  const res = await fetch('/api/v1/logout', {
     method: 'POST',
   })
 

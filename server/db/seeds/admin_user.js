@@ -10,8 +10,10 @@ export async function seed(knex) {
   )
 
   await knex('users').del()
-  await knex('users').insert({
+  const [user] = await knex('users').insert({
     username: 'admin',
     encrypted_password,
   })
+  const [role] = await knex('roles').insert({ name: 'admin' })
+  await knex('has_role').insert({ user, role })
 }

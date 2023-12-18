@@ -23,7 +23,7 @@ passport.use(
     } catch (err) {
       cb(err as Error)
     }
-  }),
+  })
 )
 
 passport.serializeUser((user, cb) => {
@@ -45,6 +45,32 @@ const router = express.Router()
 router.post('/login', passport.authenticate('local'), (req, res) => {
   res.json({ username: req.user?.username })
 })
+
+router.post(
+  '/change-password',
+  passport.authenticate('local'),
+  async (req, res) => {
+    if (!req.user) {
+      res.sendStatus(401)
+      return
+    }
+
+    const { newPassword } = req.body
+    await Na.ready
+
+    const hashed_password = Na.crypto_pwhash(
+      newPassword,
+      Na.crypto_pwhash_OPSLIMIT_INTERACTIVE,
+      Na.crypto_pwhash_MEMLIMIT_INTERACTIVE
+    )
+
+    await db.changePassword(req.user.id, hashed_password)
+    res.sendStatus(204)
+  }
+)
+
+// TODO: POST /invitiation
+// TODO: POST /accept?invitation=GUID
 
 router.post('/logout', (req, res) => {
   req.logout()
