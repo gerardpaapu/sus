@@ -23,7 +23,7 @@ passport.use(
     } catch (err) {
       cb(err as Error)
     }
-  })
+  }),
 )
 
 passport.serializeUser((user, cb) => {
@@ -58,15 +58,16 @@ router.post(
     const { newPassword } = req.body
     await Na.ready
 
+    /* @ts-expect-error */
     const hashed_password = Na.crypto_pwhash(
       newPassword,
       Na.crypto_pwhash_OPSLIMIT_INTERACTIVE,
-      Na.crypto_pwhash_MEMLIMIT_INTERACTIVE
+      Na.crypto_pwhash_MEMLIMIT_INTERACTIVE,
     )
 
     await db.changePassword(req.user.id, hashed_password)
     res.sendStatus(204)
-  }
+  },
 )
 
 // TODO: POST /invitiation
